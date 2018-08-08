@@ -42,6 +42,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'rest_framework',
+
+    'users.apps.UsersConfig',
+    'verifications.apps.VerificationsConfig',
 ]
 
 MIDDLEWARE = [
@@ -88,7 +91,7 @@ WSGI_APPLICATION = 'meiduo.wsgi.application'
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
-        "HOST": "10.211.55.5",
+        "HOST": "127.0.0.1",
         "PORT": 3306,
         "USER": "meiduo_user",
         "PASSWORD": "meiduo",
@@ -107,6 +110,13 @@ CACHES = {
     "session": {
         "BACKEND": "django_redis.cache.RedisCache",
         "LOCATION": "redis://10.211.55.5:6379/1",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        }
+    },
+    "verify": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379/2",
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
         }
@@ -210,3 +220,5 @@ REST_FRAMEWORK = {
     # 异常处理
     'EXCEPTION_HANDLER': 'meiduo_mall.utils.exceptions.exception_handler',
 }
+
+AUTH_USER_MODEL = 'users.User'
